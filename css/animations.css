@@ -1,0 +1,246 @@
+/* ============================================
+   CORNETA METAIS — Animations
+   Scroll reveals, dividers, transitions
+   ============================================ */
+
+/* =========================
+   SCROLL REVEAL
+   ========================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.revealed > *:nth-child(2) { transition-delay: 0.12s; }
+.reveal-stagger.revealed > *:nth-child(3) { transition-delay: 0.19s; }
+.reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.26s; }
+.reveal-stagger.revealed > *:nth-child(5) { transition-delay: 0.33s; }
+.reveal-stagger.revealed > *:nth-child(6) { transition-delay: 0.40s; }
+.reveal-stagger.revealed > *:nth-child(7) { transition-delay: 0.47s; }
+.reveal-stagger.revealed > *:nth-child(8) { transition-delay: 0.54s; }
+.reveal-stagger.revealed > *:nth-child(9) { transition-delay: 0.61s; }
+
+.reveal-stagger.revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reveal from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Reveal from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale in */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================
+   SECTION DIVIDERS
+   ========================= */
+
+.divider-wave {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.divider-wave svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.divider-wave--cream svg path {
+  fill: var(--cream);
+}
+
+.divider-wave--white svg path {
+  fill: var(--white);
+}
+
+.divider-wave--off-white svg path {
+  fill: var(--off-white);
+}
+
+.divider-wave--dark svg path {
+  fill: var(--charcoal);
+}
+
+/* Diagonal Divider */
+.divider-diagonal {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+}
+
+.divider-diagonal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -5%;
+  right: -5%;
+  bottom: 0;
+  background: var(--white);
+  transform: skewY(-2deg);
+  transform-origin: top left;
+}
+
+.divider-diagonal--cream::before {
+  background: var(--cream);
+}
+
+/* Decorative line divider */
+.divider-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-3xl) 0;
+}
+
+.divider-line::before,
+.divider-line::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sand), transparent);
+}
+
+.divider-line__icon {
+  width: 12px;
+  height: 12px;
+  background: var(--corten);
+  transform: rotate(45deg);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* =========================
+   PARALLAX
+   ========================= */
+
+.parallax-bg {
+  will-change: transform;
+}
+
+/* =========================
+   COUNTER ANIMATION
+   ========================= */
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   LOADING SHIMMER
+   ========================= */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--beige) 0%,
+    var(--cream) 40%,
+    var(--beige) 60%,
+    var(--cream) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* =========================
+   FADE-IN VARIANTS
+   ========================= */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hero text animation */
+.hero__content > * {
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.hero__content > *:nth-child(1) { animation-delay: 0.2s; }
+.hero__content > *:nth-child(2) { animation-delay: 0.4s; }
+.hero__content > *:nth-child(3) { animation-delay: 0.6s; }
+.hero__content > *:nth-child(4) { animation-delay: 0.8s; }

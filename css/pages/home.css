@@ -1,0 +1,16 @@
+/* ============================================
+   CORNETA METAIS — Home Page Styles
+   ============================================ */
+
+/* Nothing extra needed beyond sections.css and components.css for now.
+   Page-specific overrides only. */
+
+/* Services section offset layout inspired by reference image 2 */
+.home-services .services-grid {
+  padding: 0 var(--space-md);
+}
+
+/* About photos grid on home */
+.home-about .about__photos {
+  padding: var(--space-md);
+}
