@@ -22,9 +22,9 @@
 }
 
 .form-group label {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   color: var(--brown-dark);

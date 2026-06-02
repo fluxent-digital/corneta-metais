@@ -404,41 +404,26 @@
   background: var(--white);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
-  transition: all var(--transition-base);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--beige);
 }
 
 .diff-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px) scale(1.02);
   box-shadow: var(--shadow-lg);
   border-color: var(--corten-light);
 }
 
 .diff-card__icon {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--cream), var(--beige));
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-lg);
-  transition: background var(--transition-base);
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: var(--space-md);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: inline-block;
 }
 
 .diff-card:hover .diff-card__icon {
-  background: linear-gradient(135deg, var(--corten-light), var(--corten));
-}
-
-.diff-card__icon svg {
-  width: 24px;
-  height: 24px;
-  color: var(--corten);
-  transition: color var(--transition-base);
-}
-
-.diff-card:hover .diff-card__icon svg {
-  color: var(--white);
+  transform: scale(1.15) rotate(5deg);
 }
 
 .diff-card__title {
