@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initSmoothScroll();
   initAnimations();
+  initLightbox();
+  initFAQ();
 });
 
 /* =========================
@@ -41,6 +43,7 @@ function initNavbar() {
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
       mobileOverlay.classList.toggle('open');
+      navbar.classList.toggle('menu-open');
       document.body.style.overflow = mobileOverlay.classList.contains('open') ? 'hidden' : '';
     });
 
@@ -49,6 +52,7 @@ function initNavbar() {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
         mobileOverlay.classList.remove('open');
+        navbar.classList.remove('menu-open');
         document.body.style.overflow = '';
       });
     });
@@ -58,6 +62,7 @@ function initNavbar() {
       if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) {
         hamburger.classList.remove('open');
         mobileOverlay.classList.remove('open');
+        navbar.classList.remove('menu-open');
         document.body.style.overflow = '';
       }
     });
@@ -89,6 +94,36 @@ function initSmoothScroll() {
 }
 
 /* =========================
+   FAQ ACCORDION
+   ========================= */
+function initFAQ() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  if (!faqItems.length) return;
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-item__question');
+    if (!question) return;
+
+    question.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+
+      // Close all other items
+      faqItems.forEach(other => {
+        if (other !== item) {
+          other.classList.remove('active');
+          const otherBtn = other.querySelector('.faq-item__question');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle current item
+      item.classList.toggle('active', !isActive);
+      question.setAttribute('aria-expanded', !isActive ? 'true' : 'false');
+    });
+  });
+}
+
+/* =========================
    SCROLL ANIMATIONS
    ========================= */
 function initAnimations() {
@@ -109,4 +144,60 @@ function initAnimations() {
   });
 
   revealElements.forEach(el => observer.observe(el));
+}
+/* =========================
+   LIGHTBOX
+   ========================= */
+function initLightbox() {
+  const galleryImages = document.querySelectorAll('.gallery-grid__item img, .about__photo img');
+  if (!galleryImages.length) return;
+
+  // Create lightbox markup
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = `
+    <div class="lightbox__overlay"></div>
+    <div class="lightbox__content">
+      <img src="" alt="" class="lightbox__image">
+      <button class="lightbox__close" aria-label="Close lightbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  `;
+  document.body.appendChild(lightbox);
+
+  const lightboxImg = lightbox.querySelector('.lightbox__image');
+  const lightboxOverlay = lightbox.querySelector('.lightbox__overlay');
+  const closeBtn = lightbox.querySelector('.lightbox__close');
+
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Add click event to all gallery images
+  galleryImages.forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      openLightbox(img.src, img.alt);
+    });
+  });
+
+  // Close events
+  closeBtn.addEventListener('click', closeLightbox);
+  lightboxOverlay.addEventListener('click', closeLightbox);
+  
+  // Keyboard event
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
 }
